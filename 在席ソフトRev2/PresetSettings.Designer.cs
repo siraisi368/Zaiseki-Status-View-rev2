@@ -1,6 +1,6 @@
 ﻿namespace 在席ソフトRev2
 {
-    partial class Form2
+    partial class PresetSettings
     {
         /// <summary>
         /// Required designer variable.

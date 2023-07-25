@@ -1,6 +1,6 @@
 ﻿namespace 在席ソフトRev2
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// 必要なデザイナー変数です。

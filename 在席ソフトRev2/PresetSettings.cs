@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace 在席ソフトRev2
 {
-    public partial class Form2 : Form
+    public partial class PresetSettings : Form
     {
-        public Form2()
+        public PresetSettings()
         {
             InitializeComponent();
         }
