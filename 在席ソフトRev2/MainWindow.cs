@@ -17,8 +17,29 @@ namespace 在席ソフトRev2
         {
             InitializeComponent();
         }
-        //引数:色, 状態, 名前, メモ, 放送局名
-        public void WriteInformationToDisp((Color?,Color?) stateColor,string status,string name,string memo,string channelName, string haishin, string basyo)
+
+        public static class globalhensuu
+        {
+            public static string preficonfilepath;
+            public static string usericonfilepath;
+        }
+
+        /// <summary>
+        /// 画面に描画します。
+        /// </summary>
+        /// <param name="stateColor">在席状態の背景色,在席状態の文字色</param>
+        /// <param name="status">在席状態</param>
+        /// <param name="name">配信者名</param>
+        /// <param name="memo">配信地点等</param>
+        /// <param name="channelName">配信チャンネル名</param>
+        /// <param name="haishin">配信担当or録画担当</param>
+        /// <param name="basyo">配信場所or記録場所</param>
+        /// <param name="is_todohukenn">都道府県アイコンを表示するか否か</param>
+        /// <param name="todouhukenn">都道府県</param>
+        /// <param name="is_usericon">ユーザアイコンを表示するか否か</param>
+        /// <param name="usericonpath">ユーザアイコンの場所</param>
+
+        public void WriteInformationToDisp((Color?,Color?) stateColor,string status,string name,string memo,string channelName, string haishin, string basyo, bool is_todohukenn, string todouhukenn, bool is_usericon, string usericonpath)
         {
             Font StatusFont = new Font("M PLUS 1 SemiBold", 45); //状態文字
             Font TitleFont = new Font("M PLUS 1 SemiBold", 16); //配信者・地
@@ -69,6 +90,39 @@ namespace 在席ソフトRev2
             }
             pictureBox1.Image = canvas;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stateColor">在席状態の背景色,在席状態の文字色</param>
+        /// <param name="status">在席状態</param>
+        /// <param name="name">配信者名</param>
+        /// <param name="memo">配信地点等</param>
+        /// <param name="channelName">配信チャンネル名</param>
+        /// <param name="haishin">配信担当or録画担当</param>
+        /// <param name="basyo">配信場所or記録場所</param>
+        /// <param name="is_todohukenn">都道府県アイコンを表示するか否か</param>
+        /// <param name="todouhukenn">都道府県</param>
+        /// <param name="is_usericon">ユーザアイコンを表示するか否か</param>
+        /// <param name="usericonpath">ユーザアイコンの場所</param>
+
+        private void save_Config ((Color?, Color?) stateColor, string status, string name, string memo, string channelName, string haishin, string basyo ,bool is_todohukenn,string todouhukenn,bool is_usericon,string usericonpath)
+        {
+            (Properties.Settings.Default.moziColor, Properties.Settings.Default.haikeiColor) = (stateColor.Item1.Value, stateColor.Item2.Value);
+            Properties.Settings.Default.status = status;
+            Properties.Settings.Default.name = name;
+            Properties.Settings.Default.memo = memo;
+            Properties.Settings.Default.channel = channelName;
+            Properties.Settings.Default.haishin = haishin;
+            Properties.Settings.Default.basyo = basyo;
+            Properties.Settings.Default.chbx1 = radioButton1.Checked;
+            Properties.Settings.Default.chbx2 = radioButton2.Checked;
+
+            Properties.Settings.Default.Save();
+        }
+        private void PresetLoader(int index)
+        {
+
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             (moziColor,haikeiColor) = (Properties.Settings.Default.moziColor, Properties.Settings.Default.haikeiColor);
@@ -87,7 +141,7 @@ namespace 在席ソフトRev2
             radioButton1.Checked = Properties.Settings.Default.chbx1;
             radioButton2.Checked = Properties.Settings.Default.chbx2;
 
-            WriteInformationToDisp((moziColor, haikeiColor), status, name, memo,channelName,haishin,basyo);
+            WriteInformationToDisp((moziColor, haikeiColor), status, name, memo,channelName,haishin,basyo,true,"",true,"");
         }
         private Color? moziColor;
         private Color? haikeiColor;
@@ -95,13 +149,13 @@ namespace 在席ソフトRev2
         {
             if (radioButton1.Checked)
             {
-                WriteInformationToDisp((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text,"配信者", "配信地");
-                save_Config((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "配信者", "配信地");
+                WriteInformationToDisp((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text,"配信者", "配信地", true, "", true, "");
+                save_Config((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "配信者", "配信地", true, "", true, "");
             }
             else if (radioButton2.Checked)
             {
-                WriteInformationToDisp((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "記録者", "記録地");
-                save_Config((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "記録者", "記録地");
+                WriteInformationToDisp((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "記録者", "記録地", true, "", true, "");
+                save_Config((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "記録者", "記録地", true, "", true, "");
             }
             
         }
@@ -124,20 +178,6 @@ namespace 在席ソフトRev2
             }
         }
 
-        private void save_Config ((Color?, Color?) stateColor, string status, string name, string memo, string channelName, string haishin, string basyo)
-        {
-            (Properties.Settings.Default.moziColor, Properties.Settings.Default.haikeiColor) = (stateColor.Item1.Value, stateColor.Item2.Value);
-            Properties.Settings.Default.status = status;
-            Properties.Settings.Default.name = name;
-            Properties.Settings.Default.memo = memo;
-            Properties.Settings.Default.channel = channelName;
-            Properties.Settings.Default.haishin = haishin;
-            Properties.Settings.Default.basyo = basyo;
-            Properties.Settings.Default.chbx1 = radioButton1.Checked;
-            Properties.Settings.Default.chbx2 = radioButton2.Checked;
-
-            Properties.Settings.Default.Save();
-        }
 
         private void この表示を画像として保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -160,6 +200,28 @@ namespace 在席ソフトRev2
                     pictureBox1.Image.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Png);
                     break;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+                button4.Enabled = checkBox1.Checked;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "GIF|*.gif|JPEG|*.jpeg|PNG|*.png";
+            openFileDialog.ShowDialog();
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            globalhensuu.preficonfilepath=openFileDialog1.FileName;
         }
     }
 }
