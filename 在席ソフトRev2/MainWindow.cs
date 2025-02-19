@@ -17,6 +17,7 @@ namespace 在席ソフトRev2
 
         public List<PresetData> presets = new List<PresetData>();
         private preset pre = new preset();
+        private string iconpath;
 
         /// <summary>
         /// 画面を描画します。
@@ -81,6 +82,23 @@ namespace 在席ソフトRev2
                     g.DrawString(data.castStaName, ChFont, ChFontColor,(RectangleF)rectangle,sf);
                 }
 
+                //アイコン
+                if(data.iconDatas.isViewAuthorIcon && data.iconDatas.authorIconPath != null)
+                {
+                    try
+                    {
+                        Image icon = Image.FromFile(data.iconDatas.authorIconPath);
+                        g.DrawImage(icon, 73, 48, 40, 40);
+                    }
+                    catch {  }
+                }
+
+                if (data.iconDatas.prefectureIcon > 0)
+                {
+                    //Image icon = Image.FromFile("icons/" + data.iconDatas.prefectureIcon + ".png");
+                    //g.DrawImage(icon, 0, 20, 65, 150);
+                }
+
                 g.DrawString(data.isRecorder ? "記録者" : "配信者", TitleFont, TitleFontColor, 65, 17);
                 g.DrawString(data.isRecorder ? "記録地" : "配信地", TitleFont, TitleFontColor, 65, 89);
                 g.DrawString(data.authorName, DataFont, TitleFontColor, nameStartPixels, 32);
@@ -125,6 +143,12 @@ namespace 在席ソフトRev2
                 {
                     stateForeColor = moziColor.Value,
                     stateBackColor = haikeiColor.Value,
+                },
+                iconDatas = new IconDatas()
+                {
+                    prefectureIcon = comboBox1.SelectedIndex,
+                    isViewAuthorIcon = checkBox1.Checked,
+                    authorIconPath = iconpath
                 }
             };
             pictureBox1.Image = WriteInformationToDisp(viewDatas);
@@ -165,12 +189,19 @@ namespace 在席ソフトRev2
                     moziColor = preset.viewDatas.stateColors.stateForeColor;
                     haikeiColor = preset.viewDatas.stateColors.stateBackColor;
                 }
+
+                if(preset.viewDatas.iconDatas != null)
+                {
+                    comboBox1.SelectedIndex = preset.viewDatas.iconDatas.prefectureIcon;
+                    checkBox1.Checked = preset.viewDatas.iconDatas.isViewAuthorIcon;
+                    iconpath = preset.viewDatas.iconDatas.authorIconPath;
+                }
             }
         }
 
         private void この表示を画像として保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.Filter = "GIF|*.gif|JPEG|*.jpeg|PNG|*.png";
+            saveFileDialog1.Filter = "GIF|*.gif|JPEG|*.jpeg;*.jpg|PNG|*.png";
             saveFileDialog1.ShowDialog();
         }
 
@@ -203,9 +234,9 @@ namespace 在席ソフトRev2
 
         private void button4_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "GIF|*.gif|JPEG|*.jpeg|PNG|*.png";
-            openFileDialog.ShowDialog();
+            openFileDialog1.Filter = "PNG|*.png|JPEG|*.jpeg;*.jpg|GIF|*.gif";
+            openFileDialog1.ShowDialog();
+            iconpath = openFileDialog1.FileName;
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -319,6 +350,32 @@ namespace 在席ソフトRev2
                 ReDrawList();
                 pre.save(presets);
             }
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ViewDatas viewDatas = new ViewDatas()
+            {
+                authorName = textBox1.Text,
+                authorMemo = textBox2.Text,
+                castStaName = textBox3.Text,
+                authorState = textBox4.Text,
+                isRecorder = radioButton2.Checked,
+                stateColors = new StateColors()
+                {
+                    stateForeColor = moziColor.Value,
+                    stateBackColor = haikeiColor.Value,
+                },
+                iconDatas = new IconDatas()
+                {
+                    prefectureIcon = comboBox1.SelectedIndex,
+                    isViewAuthorIcon = checkBox1.Checked,
+                    authorIconPath = iconpath
+                }
+            };
+            lastdata lastdata = new lastdata();
+            lastdata.save(viewDatas);
+            pre.save(presets);
         }
     }
 }

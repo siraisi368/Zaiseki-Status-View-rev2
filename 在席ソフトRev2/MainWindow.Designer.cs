@@ -399,7 +399,7 @@
             this.toolStripSeparator2,
             this.プリセットの削除ToolStripMenuItem});
             this.presetContextMenu.Name = "presetContextMenu";
-            this.presetContextMenu.Size = new System.Drawing.Size(181, 126);
+            this.presetContextMenu.Size = new System.Drawing.Size(176, 104);
             // 
             // プリセットの編集ToolStripMenuItem
             // 
@@ -479,6 +479,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "MainWindow";
             this.Text = "在席状態表示ソフト Rev2 Ver1.1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);

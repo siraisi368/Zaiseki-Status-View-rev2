@@ -42,6 +42,12 @@ namespace 在席ソフトRev2
                 {
                     stateForeColor = moziColor.Value,
                     stateBackColor = haikeiColor.Value,
+                },
+                iconDatas = new IconDatas()
+                {
+                    prefectureIcon = comboBox1.SelectedIndex,
+                    isViewAuthorIcon = checkBox1.Checked,
+                    authorIconPath = iconpath
                 }
             };
 
@@ -188,6 +194,13 @@ namespace 在席ソフトRev2
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataToTextbox(presetDatas[comboBox2.SelectedIndex]);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "PNG|*.png|JPEG|*.jpeg;*.jpg|GIF|*.gif";
+            openFileDialog1.ShowDialog();
+            iconpath = openFileDialog1.FileName;
         }
     }
 }

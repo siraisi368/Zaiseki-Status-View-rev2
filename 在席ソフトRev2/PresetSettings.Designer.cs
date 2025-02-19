@@ -57,6 +57,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -205,6 +206,7 @@
             this.button4.TabIndex = 17;
             this.button4.Text = "画像ファイルを選択する";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // checkBox1
             // 
@@ -392,6 +394,10 @@
             this.comboBox2.TabIndex = 11;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // PresetSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -454,5 +460,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
