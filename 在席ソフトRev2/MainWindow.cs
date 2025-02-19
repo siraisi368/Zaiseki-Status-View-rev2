@@ -90,7 +90,9 @@ namespace 在席ソフトRev2
                         Image icon = Image.FromFile(data.iconDatas.authorIconPath);
                         g.DrawImage(icon, 73, 48, 40, 40);
                     }
-                    catch {  }
+                    catch {
+                        MessageBox.Show("アイコンの画像が見つかりませんでした。\r\n(画像を移動した？)", "エラー",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    }
                 }
 
                 if (data.iconDatas.prefectureIcon > 0)
