@@ -16,4 +16,4 @@ Apache License 2.0
 
 ## 作者
 しらいし  
-MasatoSiraisi#7835|@Siraisi_Ch
+Twitter/Discord/Misskey(misskey.io) @Siraisi_Ch
