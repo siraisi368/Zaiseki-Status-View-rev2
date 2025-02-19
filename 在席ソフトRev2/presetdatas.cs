@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,47 +12,36 @@ namespace 在席ソフトRev2
     /// <summary>
     /// プリセットのデータ形式
     /// </summary>
-    public class presetdatas
+    public class IconDatas
     {
-        /// <summary>
-        /// プリセットの名前
-        /// </summary>
-        public string name { get; set; }
-        /// <summary>
-        /// 備考
-        /// </summary>
-        public string description { get; set; }
-        /// <summary>
-        /// 配信者or記録者
-        /// </summary>
-        public string type { get; set; }
-        /// <summary>
-        /// 配信・記録者名
-        /// </summary>
-        public string broname { get; set; }
-        /// <summary>
-        /// 配信地点名
-        /// </summary>
-        public string pointname { get; set; }
-        /// <summary>
-        /// 配信局・記録局名
-        /// </summary>
-        public string brostaname { get; set; }
-        /// <summary>
-        /// ユーザアイコンを表示するか
-        /// </summary>
-        public bool isnicon { get; set; }
-        /// <summary>
-        /// 配信地点(下段)アイコンを表示するか
-        /// </summary>
-        public bool ispicn { get; set; }
-        /// <summary>
-        /// 配信地点(下段)アイコンのパス
-        /// </summary>
-        public string pointpath { get; set; }
-        /// <summary>
-        /// 配信者(上段)アイコンのパス
-        /// </summary>
-        public string broiconpath { get; set; }
+        public int prefectureIcon { get; set; }
+        public bool isViewAuthorIcon { get; set; }
+        public string authorIconPath { get; set; }
     }
+
+    public class PresetData
+    {
+        public string presetName { get; set; }
+        public string presetDescription { get; set; }
+        public ViewDatas viewDatas { get; set; } = new ViewDatas();
+    }
+
+    public class StateColors
+    {
+        public Color stateForeColor { get; set; } = Color.Black;
+        public Color stateBackColor { get; set; } = Color.White;
+    }
+
+    public class ViewDatas
+    {
+        public string authorName { get; set; }
+        public string authorMemo { get; set; }
+        public string castStaName { get; set; }
+        public string authorState { get; set; }
+        public bool isRecorder { get; set; }
+        public StateColors stateColors { get; set; } = new StateColors();
+        public IconDatas iconDatas { get; set; } = new IconDatas();
+    }
+
+
 }

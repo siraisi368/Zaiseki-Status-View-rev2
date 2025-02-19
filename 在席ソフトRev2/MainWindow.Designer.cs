@@ -23,8 +23,8 @@
         #region Windows フォーム デザイナーで生成されたコード
 
         /// <summary>
-        /// デザイナー サポートに必要なメソッドです。このメソッドの内容を
-        /// コード エディターで変更しないでください。
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -53,14 +53,25 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.button6 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.presetContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.プリセットの編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.プリセットの削除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.プリセットの複製ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.プリセットの新規作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.複製のみToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.複製して編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.presetContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -289,6 +300,7 @@
             // 
             // button4
             // 
+            this.button4.Enabled = false;
             this.button4.Location = new System.Drawing.Point(6, 78);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(194, 23);
@@ -317,7 +329,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listBox1);
+            this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.label6);
@@ -328,6 +340,41 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "プリセット";
             // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView1.ContextMenuStrip = this.presetContextMenu;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(8, 30);
+            this.listView1.Name = "listView1";
+            this.listView1.ShowItemToolTips = true;
+            this.listView1.Size = new System.Drawing.Size(180, 71);
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(194, 78);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(104, 23);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "新規プリセット作成";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(194, 30);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(104, 42);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "選択中を反映";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -337,35 +384,78 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "現在のプリセット:";
             // 
-            // button5
+            // columnHeader1
             // 
-            this.button5.Location = new System.Drawing.Point(6, 78);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(142, 23);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "選択中を反映";
-            this.button5.UseVisualStyleBackColor = true;
+            this.columnHeader1.Text = "プリセット名";
+            this.columnHeader1.Width = 150;
             // 
-            // button6
+            // presetContextMenu
             // 
-            this.button6.Location = new System.Drawing.Point(156, 78);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(142, 23);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "新規プリセット作成";
-            this.button6.UseVisualStyleBackColor = true;
+            this.presetContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.プリセットの新規作成ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.プリセットの編集ToolStripMenuItem,
+            this.プリセットの複製ToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.プリセットの削除ToolStripMenuItem});
+            this.presetContextMenu.Name = "presetContextMenu";
+            this.presetContextMenu.Size = new System.Drawing.Size(181, 126);
             // 
-            // listBox1
+            // プリセットの編集ToolStripMenuItem
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(8, 30);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(290, 40);
-            this.listBox1.TabIndex = 3;
+            this.プリセットの編集ToolStripMenuItem.Name = "プリセットの編集ToolStripMenuItem";
+            this.プリセットの編集ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.プリセットの編集ToolStripMenuItem.Text = "プリセットの編集";
+            this.プリセットの編集ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの編集ToolStripMenuItem_Click);
             // 
-            // Form1
+            // プリセットの削除ToolStripMenuItem
+            // 
+            this.プリセットの削除ToolStripMenuItem.Name = "プリセットの削除ToolStripMenuItem";
+            this.プリセットの削除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.プリセットの削除ToolStripMenuItem.Text = "プリセットの削除";
+            this.プリセットの削除ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの削除ToolStripMenuItem_Click);
+            // 
+            // プリセットの複製ToolStripMenuItem
+            // 
+            this.プリセットの複製ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.複製のみToolStripMenuItem,
+            this.複製して編集ToolStripMenuItem});
+            this.プリセットの複製ToolStripMenuItem.Name = "プリセットの複製ToolStripMenuItem";
+            this.プリセットの複製ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.プリセットの複製ToolStripMenuItem.Text = "プリセットの複製";
+            // 
+            // プリセットの新規作成ToolStripMenuItem
+            // 
+            this.プリセットの新規作成ToolStripMenuItem.Name = "プリセットの新規作成ToolStripMenuItem";
+            this.プリセットの新規作成ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.プリセットの新規作成ToolStripMenuItem.Text = "プリセットの新規作成";
+            this.プリセットの新規作成ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの新規作成ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(172, 6);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(172, 6);
+            // 
+            // 複製のみToolStripMenuItem
+            // 
+            this.複製のみToolStripMenuItem.Name = "複製のみToolStripMenuItem";
+            this.複製のみToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.複製のみToolStripMenuItem.Text = "複製のみ";
+            this.複製のみToolStripMenuItem.Click += new System.EventHandler(this.複製のみToolStripMenuItem_Click);
+            // 
+            // 複製して編集ToolStripMenuItem
+            // 
+            this.複製して編集ToolStripMenuItem.Name = "複製して編集ToolStripMenuItem";
+            this.複製して編集ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.複製して編集ToolStripMenuItem.Text = "複製して編集";
+            this.複製して編集ToolStripMenuItem.Click += new System.EventHandler(this.複製して編集ToolStripMenuItem_Click);
+            // 
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -387,7 +477,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "在席状態表示ソフト Rev2 Ver1.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -396,6 +486,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.presetContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -430,7 +521,17 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ContextMenuStrip presetContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem プリセットの新規作成ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem プリセットの編集ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem プリセットの複製ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem プリセットの削除ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 複製のみToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 複製して編集ToolStripMenuItem;
     }
 }
 

@@ -63,10 +63,16 @@
       <DependentUpon>PresetSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="presetdatas.cs" />
+    <Compile Include="presetwapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendData.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PresetSettings.resx">
+      <DependentUpon>PresetSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

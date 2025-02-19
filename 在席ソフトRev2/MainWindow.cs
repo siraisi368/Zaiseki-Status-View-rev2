@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace 在席ソフトRev2
 {
@@ -18,39 +15,39 @@ namespace 在席ソフトRev2
             InitializeComponent();
         }
 
-        public static class globalhensuu
-        {
-            public static string preficonfilepath;
-            public static string usericonfilepath;
-        }
+        public List<PresetData> presets = new List<PresetData>();
+        private preset pre = new preset();
 
         /// <summary>
-        /// 画面に描画します。
+        /// 画面を描画します。
         /// </summary>
-        /// <param name="stateColor">在席状態の背景色,在席状態の文字色</param>
-        /// <param name="status">在席状態</param>
-        /// <param name="name">配信者名</param>
-        /// <param name="memo">配信地点等</param>
-        /// <param name="channelName">配信チャンネル名</param>
-        /// <param name="haishin">配信担当or録画担当</param>
-        /// <param name="basyo">配信場所or記録場所</param>
-        /// <param name="is_todohukenn">都道府県アイコンを表示するか否か</param>
-        /// <param name="todouhukenn">都道府県</param>
-        /// <param name="is_usericon">ユーザアイコンを表示するか否か</param>
-        /// <param name="usericonpath">ユーザアイコンの場所</param>
-
-        public void WriteInformationToDisp((Color?,Color?) stateColor,string status,string name,string memo,string channelName, string haishin, string basyo, bool is_todohukenn, string todouhukenn, bool is_usericon, string usericonpath)
+        /// <param name="data">PresetData.ViewDatas形式</param>
+        /// <returns></returns>
+        public Image WriteInformationToDisp(ViewDatas data)
         {
             Font StatusFont = new Font("M PLUS 1 SemiBold", 45); //状態文字
             Font TitleFont = new Font("M PLUS 1 SemiBold", 16); //配信者・地
             Font ChFont = new Font("M PLUS 1 SemiBold", 15); //配信者・地
             Font DataFont = new Font("M PLUS 1 SemiBold", 33); //配信者名・地名
 
-            SolidBrush StatusFontColor = new SolidBrush(stateColor.Item1.Value);
+            SolidBrush StatusFontColor = new SolidBrush(data.stateColors.stateForeColor);
             SolidBrush TitleFontColor = new SolidBrush(Color.FromArgb(51, 51, 51));
             SolidBrush ChFontColor = new SolidBrush(Color.FromArgb(254,254,254));
 
-            Bitmap canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            int memoStartPixels = 65;
+            int nameStartPixels = 65;
+            
+            if (data.iconDatas.prefectureIcon > 0)
+            {
+                memoStartPixels += 50;
+            }
+
+            if (data.iconDatas.isViewAuthorIcon)
+            {
+                nameStartPixels += 50;
+            }
+            
+            Bitmap canvas = new Bitmap(540, 172);
             using (Graphics g = Graphics.FromImage(canvas))
             {
                 g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
@@ -66,7 +63,7 @@ namespace 在席ソフトRev2
                     g.FillRectangle(b, 70, 45, 464, 1);
                     g.FillRectangle(b, 70, 117, 464, 1);
                 }
-                using (SolidBrush b = new SolidBrush(stateColor.Item2.Value)) //状態背景
+                using (SolidBrush b = new SolidBrush(data.stateColors.stateBackColor)) //状態背景
                 {
                     g.FillRectangle(b, 0, 20, 65, 150);
                 }
@@ -75,89 +72,64 @@ namespace 在席ソフトRev2
                 using (StringFormat sf = new StringFormat())
                 {
                     sf.FormatFlags = StringFormatFlags.DirectionVertical;
-                    g.DrawString(status.ToString(), StatusFont, StatusFontColor,-20, 18, sf); //状態文字
+                    g.DrawString(data.authorState, StatusFont, StatusFontColor,-20, 18, sf); //状態文字
                 }
                 using (StringFormat sf = new StringFormat())
                 {
                     sf.FormatFlags = StringFormatFlags.FitBlackBox;
                     sf.Alignment = StringAlignment.Center;
-                    g.DrawString(channelName, ChFont, ChFontColor,(RectangleF)rectangle,sf);
+                    g.DrawString(data.castStaName, ChFont, ChFontColor,(RectangleF)rectangle,sf);
                 }
-                g.DrawString(haishin, TitleFont, TitleFontColor, 65, 17);
-                g.DrawString(basyo, TitleFont, TitleFontColor, 65, 89);
-                g.DrawString(name, DataFont, TitleFontColor, 65, 32);
-                g.DrawString(memo, DataFont, TitleFontColor, 65, 104);
+
+                g.DrawString(data.isRecorder ? "記録者" : "配信者", TitleFont, TitleFontColor, 65, 17);
+                g.DrawString(data.isRecorder ? "記録地" : "配信地", TitleFont, TitleFontColor, 65, 89);
+                g.DrawString(data.authorName, DataFont, TitleFontColor, nameStartPixels, 32);
+                g.DrawString(data.authorMemo, DataFont, TitleFontColor, memoStartPixels, 104);
             }
-            pictureBox1.Image = canvas;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="stateColor">在席状態の背景色,在席状態の文字色</param>
-        /// <param name="status">在席状態</param>
-        /// <param name="name">配信者名</param>
-        /// <param name="memo">配信地点等</param>
-        /// <param name="channelName">配信チャンネル名</param>
-        /// <param name="haishin">配信担当or録画担当</param>
-        /// <param name="basyo">配信場所or記録場所</param>
-        /// <param name="is_todohukenn">都道府県アイコンを表示するか否か</param>
-        /// <param name="todouhukenn">都道府県</param>
-        /// <param name="is_usericon">ユーザアイコンを表示するか否か</param>
-        /// <param name="usericonpath">ユーザアイコンの場所</param>
-
-        private void save_Config ((Color?, Color?) stateColor, string status, string name, string memo, string channelName, string haishin, string basyo ,bool is_todohukenn,string todouhukenn,bool is_usericon,string usericonpath)
-        {
-            (Properties.Settings.Default.moziColor, Properties.Settings.Default.haikeiColor) = (stateColor.Item1.Value, stateColor.Item2.Value);
-            Properties.Settings.Default.status = status;
-            Properties.Settings.Default.name = name;
-            Properties.Settings.Default.memo = memo;
-            Properties.Settings.Default.channel = channelName;
-            Properties.Settings.Default.haishin = haishin;
-            Properties.Settings.Default.basyo = basyo;
-            Properties.Settings.Default.chbx1 = radioButton1.Checked;
-            Properties.Settings.Default.chbx2 = radioButton2.Checked;
-
-            Properties.Settings.Default.Save();
-        }
-        private void PresetLoader(int index)
-        {
-
+            return canvas;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            (moziColor,haikeiColor) = (Properties.Settings.Default.moziColor, Properties.Settings.Default.haikeiColor);
-            string status = Properties.Settings.Default.status;
-            string name = Properties.Settings.Default.name;
-            string memo = Properties.Settings.Default.memo;
-            string channelName = Properties.Settings.Default.channel;
-            string haishin = Properties.Settings.Default.haishin;
-            string basyo = Properties.Settings.Default.basyo;
-
-            textBox1.Text = name;
-            textBox2.Text = memo;
-            textBox3.Text = channelName;
-            textBox4.Text = status;
-
-            radioButton1.Checked = Properties.Settings.Default.chbx1;
-            radioButton2.Checked = Properties.Settings.Default.chbx2;
-
-            WriteInformationToDisp((moziColor, haikeiColor), status, name, memo,channelName,haishin,basyo,true,"",true,"");
+            preset preset = new preset();
+            lastdata lastdata = new lastdata();
+            presets = preset.load();
+            pictureBox1.Image = WriteInformationToDisp(lastdata.load());
+            ReDrawList();
+            dataToTextbox(new PresetData() { viewDatas = lastdata.load() });
         }
+
+        private void ReDrawList()
+        {
+            listView1.Items.Clear();
+            foreach(PresetData pr in presets)
+            {
+                string[] values = { pr.presetName };
+                ListViewItem item = new ListViewItem(values);
+                item.ToolTipText = pr.presetDescription;
+                listView1.Items.Add(item);
+            }
+        }
+
         private Color? moziColor;
         private Color? haikeiColor;
         private void button1_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            ViewDatas viewDatas = new ViewDatas()
             {
-                WriteInformationToDisp((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text,"配信者", "配信地", true, "", true, "");
-                save_Config((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "配信者", "配信地", true, "", true, "");
-            }
-            else if (radioButton2.Checked)
-            {
-                WriteInformationToDisp((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "記録者", "記録地", true, "", true, "");
-                save_Config((moziColor, haikeiColor), textBox4.Text, textBox1.Text, textBox2.Text, textBox3.Text, "記録者", "記録地", true, "", true, "");
-            }
-            
+                authorName = textBox1.Text,
+                authorMemo = textBox2.Text,
+                castStaName = textBox3.Text,
+                authorState = textBox4.Text,
+                isRecorder = radioButton2.Checked,
+                stateColors = new StateColors()
+                {
+                    stateForeColor = moziColor.Value,
+                    stateBackColor = haikeiColor.Value,
+                }
+            };
+            pictureBox1.Image = WriteInformationToDisp(viewDatas);
+            lastdata lastdata = new lastdata();
+            lastdata.save(viewDatas);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -178,6 +150,23 @@ namespace 在席ソフトRev2
             }
         }
 
+        private void dataToTextbox(PresetData preset)
+        {
+            if (preset.viewDatas != null)
+            {
+                textBox1.Text = preset.viewDatas.authorName;
+                textBox2.Text = preset.viewDatas.authorMemo;
+                textBox3.Text = preset.viewDatas.castStaName;
+                textBox4.Text = preset.viewDatas.authorState;
+                radioButton2.Checked = preset.viewDatas.isRecorder;
+
+                if (preset.viewDatas.stateColors != null)
+                {
+                    moziColor = preset.viewDatas.stateColors.stateForeColor;
+                    haikeiColor = preset.viewDatas.stateColors.stateBackColor;
+                }
+            }
+        }
 
         private void この表示を画像として保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -209,7 +198,7 @@ namespace 在席ソフトRev2
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-                button4.Enabled = checkBox1.Checked;
+            button4.Enabled = checkBox1.Checked;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -221,7 +210,115 @@ namespace 在席ソフトRev2
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            globalhensuu.preficonfilepath=openFileDialog1.FileName;
+            
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Program.editWindowState = editWindowState.NewData;
+            PresetSettings form2 = new PresetSettings();
+            if (form2.ShowDialog() == DialogResult.OK)
+            {
+                presets = pre.load();
+                ReDrawList();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if(listView1.SelectedItems.Count > 0)
+            {
+                int selindex = 0;
+                selindex = listView1.SelectedItems[0].Index;
+                pictureBox1.Image = WriteInformationToDisp(presets[selindex].viewDatas);
+                lastdata lastdata = new lastdata();
+                lastdata.save(presets[selindex].viewDatas);
+            }
+        }
+
+        private void プリセットの新規作成ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.editWindowState = editWindowState.NewData;
+            PresetSettings form2 = new PresetSettings();
+            if (form2.ShowDialog() == DialogResult.OK)
+            {
+                presets = pre.load();
+                ReDrawList();
+            }
+        }
+
+        private void プリセットの編集ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int selindex = 0;
+                selindex = listView1.SelectedItems[0].Index;
+                Program.editWindowState = editWindowState.Edit;
+                Program.editPresetNum = selindex;
+                PresetSettings form2 = new PresetSettings();
+                if (form2.ShowDialog() == DialogResult.OK)
+                {
+                    presets = pre.load();
+                    ReDrawList();
+                }
+            }
+        }
+
+        private void 複製して編集ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int selindex = 0;
+                selindex = listView1.SelectedItems[0].Index;
+                dataToTextbox(presets[selindex]);
+                Program.editWindowState = editWindowState.CloneEdit;
+                Program.editPresetNum = selindex;
+                PresetSettings form2 = new PresetSettings();
+                if (form2.ShowDialog() == DialogResult.OK)
+                {
+                    presets = pre.load();
+                    ReDrawList();
+                }
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int selindex = 0;
+                selindex = listView1.SelectedItems[0].Index;
+                dataToTextbox(presets[selindex]);
+            }
+        }
+
+        private void プリセットの削除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int selindex = 0;
+                selindex = listView1.SelectedItems[0].Index;
+                dataToTextbox(presets[selindex]);
+                if(MessageBox.Show("プリセットを削除しますか？\r\nこの作業は元に戻せません！", "プリセットの削除", MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    presets.RemoveAt(selindex);
+                    ReDrawList();
+                    pre.save(presets);
+                }
+            }
+        }
+
+        private void 複製のみToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                int selindex = 0;
+                selindex = listView1.SelectedItems[0].Index;
+                dataToTextbox(presets[selindex]);
+                presets.Add(presets[selindex]);
+                ReDrawList();
+                pre.save(presets);
+            }
         }
     }
 }

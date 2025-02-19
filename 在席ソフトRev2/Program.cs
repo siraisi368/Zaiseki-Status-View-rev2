@@ -8,6 +8,9 @@ namespace 在席ソフトRev2
 {
     internal static class Program
     {
+        internal static editWindowState editWindowState = editWindowState.NewData;
+        internal static int editPresetNum = 0;
+
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>

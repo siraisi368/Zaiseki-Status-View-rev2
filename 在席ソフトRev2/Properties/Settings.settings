@@ -1,36 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="在席ソフトRev2.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="haikeiColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">242, 160, 0</Value>
-    </Setting>
-    <Setting Name="moziColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">White</Value>
-    </Setting>
-    <Setting Name="status" Type="System.String" Scope="User">
-      <Value Profile="(Default)">在席</Value>
-    </Setting>
-    <Setting Name="name" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="memo" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="channel" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="haishin" Type="System.String" Scope="User">
-      <Value Profile="(Default)">配信者</Value>
-    </Setting>
-    <Setting Name="basyo" Type="System.String" Scope="User">
-      <Value Profile="(Default)">配信地</Value>
-    </Setting>
-    <Setting Name="chbx1" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="chbx2" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>
