@@ -9,6 +9,9 @@ namespace 在席ソフトRev2
 {
     public partial class MainWindow : Form
     {
+
+        private SubWindow subWindow;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -17,6 +20,7 @@ namespace 在席ソフトRev2
         public List<PresetData> presets = new List<PresetData>();
         private preset pre = new preset();
         private string iconpath;
+        private bool isShowSubWindow = false;
 
         /// <summary>
         /// 画面を描画します。
@@ -97,7 +101,7 @@ namespace 在席ソフトRev2
                 if (data.iconDatas.prefectureIcon > 0)
                 {
                     Image icon = MakePrefImage.MakePrefImageFromGeoJson("./lib/prefectures.geojson", data.iconDatas.prefectureIcon);
-                    g.DrawImage(icon, 73, 120, 40,40);
+                    g.DrawImage(icon, 73, 120, 45,40);
                 }
 
                 g.DrawString(data.isRecorder ? "記録者" : "配信者", TitleFont, TitleFontColor, 65, 17);
@@ -109,6 +113,10 @@ namespace 在席ソフトRev2
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Location = Properties.Settings.Default.mainwindow;
+
+            this.MinimumSize = this.Size;
+            this.MaximumSize = this.Size;
             comboBox1.SelectedIndex = 0;
             preset preset = new preset();
             lastdata lastdata = new lastdata();
@@ -116,6 +124,16 @@ namespace 在席ソフトRev2
             pictureBox1.Image = WriteInformationToDisp(lastdata.load());
             ReDrawList();
             dataToTextbox(new PresetData() { viewDatas = lastdata.load() });
+            
+            if(Properties.Settings.Default.is_subwindow)
+            {
+                checkBox2.Checked = true;
+                subWindow = new SubWindow();
+                subWindow.FormClosed += SubWindow_FormClosed;
+                subWindow.Load += SubWindow_FormLoad;
+                subWindow.Show();
+                isShowSubWindow = true;
+            }
         }
 
         private void ReDrawList()
@@ -153,7 +171,15 @@ namespace 在席ソフトRev2
                     authorIconPath = iconpath
                 }
             };
-            pictureBox1.Image = WriteInformationToDisp(viewDatas);
+
+            if (isShowSubWindow)
+            {
+                subWindow.SetImage(WriteInformationToDisp(viewDatas));
+            }
+            else
+            {
+                pictureBox1.Image = WriteInformationToDisp(viewDatas);
+            }
             lastdata lastdata = new lastdata();
             lastdata.save(viewDatas);
         }
@@ -263,7 +289,16 @@ namespace 在席ソフトRev2
             {
                 int selindex = 0;
                 selindex = listView1.SelectedItems[0].Index;
-                pictureBox1.Image = WriteInformationToDisp(presets[selindex].viewDatas);
+
+                if (isShowSubWindow)
+                {
+                    subWindow.SetImage(WriteInformationToDisp(presets[selindex].viewDatas));
+                }
+                else
+                {
+                    pictureBox1.Image = WriteInformationToDisp(presets[selindex].viewDatas);
+                }
+
                 lastdata lastdata = new lastdata();
                 lastdata.save(presets[selindex].viewDatas);
             }
@@ -356,6 +391,13 @@ namespace 在席ソフトRev2
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Properties.Settings.Default.mainwindow = this.Location;
+
+            if (isShowSubWindow)
+            {
+                subWindow.Close();
+            }
+
             ViewDatas viewDatas = new ViewDatas()
             {
                 authorName = textBox1.Text,
@@ -378,6 +420,82 @@ namespace 在席ソフトRev2
             lastdata lastdata = new lastdata();
             lastdata.save(viewDatas);
             pre.save(presets);
+            Properties.Settings.Default.Save();
+        }
+
+        private void SubWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            isShowSubWindow = false;
+
+            ViewDatas viewDatas = new ViewDatas()
+            {
+                authorName = textBox1.Text,
+                authorMemo = textBox2.Text,
+                castStaName = textBox3.Text,
+                authorState = textBox4.Text,
+                isRecorder = radioButton2.Checked,
+                stateColors = new StateColors()
+                {
+                    stateForeColor = moziColor.Value,
+                    stateBackColor = haikeiColor.Value,
+                },
+                iconDatas = new IconDatas()
+                {
+                    prefectureIcon = comboBox1.SelectedIndex,
+                    isViewAuthorIcon = checkBox1.Checked,
+                    authorIconPath = iconpath
+                }
+            };
+
+            pictureBox1.Image = WriteInformationToDisp(viewDatas);
+            lastdata lastdata = new lastdata();
+            lastdata.save(viewDatas);
+        }
+
+        private void SubWindow_FormLoad(object sender, EventArgs e)
+        {
+            isShowSubWindow = true;
+            pictureBox1.Image = null;
+
+            ViewDatas viewDatas = new ViewDatas()
+            {
+                authorName = textBox1.Text,
+                authorMemo = textBox2.Text,
+                castStaName = textBox3.Text,
+                authorState = textBox4.Text,
+                isRecorder = radioButton2.Checked,
+                stateColors = new StateColors()
+                {
+                    stateForeColor = moziColor.Value,
+                    stateBackColor = haikeiColor.Value,
+                },
+                iconDatas = new IconDatas()
+                {
+                    prefectureIcon = comboBox1.SelectedIndex,
+                    isViewAuthorIcon = checkBox1.Checked,
+                    authorIconPath = iconpath
+                }
+            };
+
+            subWindow.SetImage(WriteInformationToDisp(viewDatas));
+            lastdata lastdata = new lastdata();
+            lastdata.save(viewDatas);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if(!isShowSubWindow)
+            {
+                subWindow = new SubWindow();
+                subWindow.FormClosed += SubWindow_FormClosed;
+                subWindow.Load += SubWindow_FormLoad;
+                subWindow.Show();
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.is_subwindow = checkBox2.Checked;
         }
     }
 }

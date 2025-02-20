@@ -16,7 +16,7 @@ namespace 在席ソフトRev2
 
             var geoJson = JObject.Parse(File.ReadAllText(filepath));
 
-            Bitmap bitmap = new Bitmap(40, 40);
+            Bitmap bitmap = new Bitmap(45, 40);
             Graphics g = Graphics.FromImage(bitmap);
 
             double minX = double.MaxValue, maxX = double.MinValue;
@@ -60,7 +60,7 @@ namespace 在席ソフトRev2
             g.Clear(Color.White);
             g.SmoothingMode = SmoothingMode.AntiAlias; // アンチエイリアスで滑らかに
 
-            Pen borderPen = new Pen(Color.LightGray, 1);
+            Pen borderPen = new Pen(Color.DarkGreen, 1);
             Brush fillBrush = new SolidBrush(Color.Green); // 塗りつぶし色
 
             // 指定した都道府県を検索して描画
