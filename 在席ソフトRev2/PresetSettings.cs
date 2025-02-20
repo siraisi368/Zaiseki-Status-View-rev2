@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace 在席ソフトRev2
@@ -163,6 +158,7 @@ namespace 在席ソフトRev2
 
         private void PresetSettings_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedIndex = 0;
             presetDatas = pre.load();
 
             switch (Program.editWindowState)
@@ -201,6 +197,11 @@ namespace 在席ソフトRev2
             openFileDialog1.Filter = "PNG|*.png|JPEG|*.jpeg;*.jpg|GIF|*.gif";
             openFileDialog1.ShowDialog();
             iconpath = openFileDialog1.FileName;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            button4.Enabled = checkBox1.Checked;
         }
     }
 }
