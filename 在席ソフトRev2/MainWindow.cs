@@ -97,7 +97,7 @@ namespace 在席ソフトRev2
                 if (data.iconDatas.prefectureIcon > 0)
                 {
                     Image icon = MakePrefImage.MakePrefImageFromGeoJson("./lib/prefectures.geojson", data.iconDatas.prefectureIcon);
-                    g.DrawImage(icon, 73, 120, 40,40);
+                    g.DrawImage(icon, 73, 120, 45,40);
                 }
 
                 g.DrawString(data.isRecorder ? "記録者" : "配信者", TitleFont, TitleFontColor, 65, 17);
