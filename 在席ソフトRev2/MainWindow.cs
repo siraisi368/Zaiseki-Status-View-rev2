@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace 在席ソフトRev2
@@ -97,8 +96,8 @@ namespace 在席ソフトRev2
 
                 if (data.iconDatas.prefectureIcon > 0)
                 {
-                    //Image icon = Image.FromFile("icons/" + data.iconDatas.prefectureIcon + ".png");
-                    //g.DrawImage(icon, 0, 20, 65, 150);
+                    Image icon = MakePrefImage.MakePrefImageFromGeoJson("./lib/prefectures.geojson", data.iconDatas.prefectureIcon);
+                    g.DrawImage(icon, 73, 120, 40,40);
                 }
 
                 g.DrawString(data.isRecorder ? "記録者" : "配信者", TitleFont, TitleFontColor, 65, 17);
@@ -110,6 +109,7 @@ namespace 在席ソフトRev2
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedIndex = 0;
             preset preset = new preset();
             lastdata lastdata = new lastdata();
             presets = preset.load();

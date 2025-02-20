@@ -200,6 +200,7 @@
             // 
             // button4
             // 
+            this.button4.Enabled = false;
             this.button4.Location = new System.Drawing.Point(6, 78);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(194, 23);
@@ -217,6 +218,7 @@
             this.checkBox1.TabIndex = 16;
             this.checkBox1.Text = "観測者アイコンを表示する";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button3
             // 

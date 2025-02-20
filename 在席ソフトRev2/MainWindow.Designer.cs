@@ -54,19 +54,19 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.presetContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.プリセットの新規作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.プリセットの編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.プリセットの複製ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.複製のみToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.複製して編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.プリセットの削除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.presetContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.プリセットの編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.プリセットの削除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.プリセットの複製ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.プリセットの新規作成ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.複製のみToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.複製して編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -355,6 +355,77 @@
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "プリセット名";
+            this.columnHeader1.Width = 150;
+            // 
+            // presetContextMenu
+            // 
+            this.presetContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.プリセットの新規作成ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.プリセットの編集ToolStripMenuItem,
+            this.プリセットの複製ToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.プリセットの削除ToolStripMenuItem});
+            this.presetContextMenu.Name = "presetContextMenu";
+            this.presetContextMenu.Size = new System.Drawing.Size(176, 104);
+            // 
+            // プリセットの新規作成ToolStripMenuItem
+            // 
+            this.プリセットの新規作成ToolStripMenuItem.Name = "プリセットの新規作成ToolStripMenuItem";
+            this.プリセットの新規作成ToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.プリセットの新規作成ToolStripMenuItem.Text = "プリセットの新規作成";
+            this.プリセットの新規作成ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの新規作成ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(172, 6);
+            // 
+            // プリセットの編集ToolStripMenuItem
+            // 
+            this.プリセットの編集ToolStripMenuItem.Name = "プリセットの編集ToolStripMenuItem";
+            this.プリセットの編集ToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.プリセットの編集ToolStripMenuItem.Text = "プリセットの編集";
+            this.プリセットの編集ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの編集ToolStripMenuItem_Click);
+            // 
+            // プリセットの複製ToolStripMenuItem
+            // 
+            this.プリセットの複製ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.複製のみToolStripMenuItem,
+            this.複製して編集ToolStripMenuItem});
+            this.プリセットの複製ToolStripMenuItem.Name = "プリセットの複製ToolStripMenuItem";
+            this.プリセットの複製ToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.プリセットの複製ToolStripMenuItem.Text = "プリセットの複製";
+            // 
+            // 複製のみToolStripMenuItem
+            // 
+            this.複製のみToolStripMenuItem.Name = "複製のみToolStripMenuItem";
+            this.複製のみToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.複製のみToolStripMenuItem.Text = "複製のみ";
+            this.複製のみToolStripMenuItem.Click += new System.EventHandler(this.複製のみToolStripMenuItem_Click);
+            // 
+            // 複製して編集ToolStripMenuItem
+            // 
+            this.複製して編集ToolStripMenuItem.Name = "複製して編集ToolStripMenuItem";
+            this.複製して編集ToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.複製して編集ToolStripMenuItem.Text = "複製して編集";
+            this.複製して編集ToolStripMenuItem.Click += new System.EventHandler(this.複製して編集ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(172, 6);
+            // 
+            // プリセットの削除ToolStripMenuItem
+            // 
+            this.プリセットの削除ToolStripMenuItem.Name = "プリセットの削除ToolStripMenuItem";
+            this.プリセットの削除ToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.プリセットの削除ToolStripMenuItem.Text = "プリセットの削除";
+            this.プリセットの削除ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの削除ToolStripMenuItem_Click);
+            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(194, 78);
@@ -383,77 +454,6 @@
             this.label6.Size = new System.Drawing.Size(82, 12);
             this.label6.TabIndex = 0;
             this.label6.Text = "現在のプリセット:";
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "プリセット名";
-            this.columnHeader1.Width = 150;
-            // 
-            // presetContextMenu
-            // 
-            this.presetContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.プリセットの新規作成ToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.プリセットの編集ToolStripMenuItem,
-            this.プリセットの複製ToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.プリセットの削除ToolStripMenuItem});
-            this.presetContextMenu.Name = "presetContextMenu";
-            this.presetContextMenu.Size = new System.Drawing.Size(176, 104);
-            // 
-            // プリセットの編集ToolStripMenuItem
-            // 
-            this.プリセットの編集ToolStripMenuItem.Name = "プリセットの編集ToolStripMenuItem";
-            this.プリセットの編集ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.プリセットの編集ToolStripMenuItem.Text = "プリセットの編集";
-            this.プリセットの編集ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの編集ToolStripMenuItem_Click);
-            // 
-            // プリセットの削除ToolStripMenuItem
-            // 
-            this.プリセットの削除ToolStripMenuItem.Name = "プリセットの削除ToolStripMenuItem";
-            this.プリセットの削除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.プリセットの削除ToolStripMenuItem.Text = "プリセットの削除";
-            this.プリセットの削除ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの削除ToolStripMenuItem_Click);
-            // 
-            // プリセットの複製ToolStripMenuItem
-            // 
-            this.プリセットの複製ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.複製のみToolStripMenuItem,
-            this.複製して編集ToolStripMenuItem});
-            this.プリセットの複製ToolStripMenuItem.Name = "プリセットの複製ToolStripMenuItem";
-            this.プリセットの複製ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.プリセットの複製ToolStripMenuItem.Text = "プリセットの複製";
-            // 
-            // プリセットの新規作成ToolStripMenuItem
-            // 
-            this.プリセットの新規作成ToolStripMenuItem.Name = "プリセットの新規作成ToolStripMenuItem";
-            this.プリセットの新規作成ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.プリセットの新規作成ToolStripMenuItem.Text = "プリセットの新規作成";
-            this.プリセットの新規作成ToolStripMenuItem.Click += new System.EventHandler(this.プリセットの新規作成ToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(172, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(172, 6);
-            // 
-            // 複製のみToolStripMenuItem
-            // 
-            this.複製のみToolStripMenuItem.Name = "複製のみToolStripMenuItem";
-            this.複製のみToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.複製のみToolStripMenuItem.Text = "複製のみ";
-            this.複製のみToolStripMenuItem.Click += new System.EventHandler(this.複製のみToolStripMenuItem_Click);
-            // 
-            // 複製して編集ToolStripMenuItem
-            // 
-            this.複製して編集ToolStripMenuItem.Name = "複製して編集ToolStripMenuItem";
-            this.複製して編集ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.複製して編集ToolStripMenuItem.Text = "複製して編集";
-            this.複製して編集ToolStripMenuItem.Click += new System.EventHandler(this.複製して編集ToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
