@@ -22,5 +22,41 @@ namespace 在席ソフトRev2.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool is_subwindow {
+            get {
+                return ((bool)(this["is_subwindow"]));
+            }
+            set {
+                this["is_subwindow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point mainwindow {
+            get {
+                return ((global::System.Drawing.Point)(this["mainwindow"]));
+            }
+            set {
+                this["mainwindow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point subwindow {
+            get {
+                return ((global::System.Drawing.Point)(this["subwindow"]));
+            }
+            set {
+                this["subwindow"] = value;
+            }
+        }
     }
 }

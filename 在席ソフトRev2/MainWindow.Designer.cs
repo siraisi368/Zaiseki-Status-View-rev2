@@ -67,6 +67,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -455,12 +457,37 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "現在のプリセット:";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("MS UI Gothic", 11F);
+            this.linkLabel1.Location = new System.Drawing.Point(9, 373);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(132, 15);
+            this.linkLabel1.TabIndex = 20;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "表示画面を分離する";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(147, 373);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(136, 16);
+            this.checkBox2.TabIndex = 21;
+            this.checkBox2.Text = "次回起動時も分離する";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(540, 377);
+            this.ClientSize = new System.Drawing.Size(540, 393);
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button3);
@@ -477,6 +504,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "在席状態表示ソフト Rev2 Ver1.1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
@@ -533,6 +561,8 @@
         private System.Windows.Forms.ToolStripMenuItem プリセットの削除ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 複製のみToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 複製して編集ToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 
